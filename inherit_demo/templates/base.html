@@ -15,8 +15,11 @@
 
 </header>
 <div class="content">
+    {% block  content %}
+        我是父模板的content代码
 
-
+    {% endblock %}
+    <li>{{ username }}</li>
 </div>
     <footer>
     这是footer部分
