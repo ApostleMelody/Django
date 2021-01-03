@@ -18,4 +18,8 @@ from django.urls import path
 from article import views
 urlpatterns = [
     path('', views.index),
+    path('email_view/',views.email_view),
+    path('null/',views.null_text_field_view),
+    path('unique/',views.unique_view),
+    path('order/',views.order_view)
 ]
