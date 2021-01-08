@@ -1,0 +1,51 @@
+{% extends 'line_base.html' %}
+{% block content %}
+
+<li>这是线路首页</li>
+    <p><font size="3" color="aqua">{{ state }}</font></p>
+   <form action="" method="post">
+        <table>
+                <tbody>
+                    <tr>
+                        <td>线路名称：</td>
+                        <td><input type="text" name="name"></td>
+                        <td><input type="hidden" name="id" value=""></td>
+                    </tr>
+                      <tr>
+                        <td></td>
+                        <td><input type="submit" value="提交"></td>
+                    </tr>
+                </tbody>
+        </table>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>线路名称</th>
+                <th>设备ID</th>
+                <th>电压等级</th>
+                <th>线路长度</t>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in line %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.name|safe }}</td>
+                    <td>{{ i.device_id }}</td>
+                    <td>{{ i.degree }}</td>
+                    <td>{{ i.length }}</td>
+                    <form action="" method="post">
+                        <td><input type="hidden" name='id' value="{{ i.id }}"></td>
+                        <td><input type="submit" value="删除"></td>
+                    </form>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock %}
+

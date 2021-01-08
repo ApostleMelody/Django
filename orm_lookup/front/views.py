@@ -65,3 +65,9 @@ def index7(request):
     print(articles.query)
     print(articles)
     return HttpResponse('index7')
+
+def index8(request):
+    articles = Article.objects.filter(create_time__date=datetime(year=2021,month=1,day=3))
+    print(articles.query)
+    print(articles)
+    return HttpResponse("index8")
