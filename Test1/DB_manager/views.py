@@ -36,6 +36,6 @@ def index(request):
             line.delete()
             line = Line.objects.filter(name__contains='')
 
-            context={'state':'删除成功',
+            context = { 'state':'删除成功',
                      'line':line}
             return render(request, 'line_index.html', context=context)
