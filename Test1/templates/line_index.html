@@ -13,12 +13,23 @@
                     </tr>
                       <tr>
                         <td></td>
-                        <td><input type="submit" value="提交"></td>
-                    </tr>
+                        <td><input type="submit" value="查询"></td>
+                      </tr>
+
                 </tbody>
         </table>
     </form>
+    <form action="{% url 'DB_manager:csv_download' %}" >
+        <table>
+                <tbody>
+                    <tr>
+                            <td></td>
+                            <td><input type="submit" value="下载csv"></td>
+                    </tr>
+                </tbody>
+        </table>
 
+    </form>
     <table>
         <thead>
             <tr>

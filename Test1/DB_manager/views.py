@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Line
-
+from django.template import loader, Context
 
 def add(request):
     if request.method == 'GET':
@@ -39,3 +39,20 @@ def index(request):
             context = { 'state':'删除成功',
                      'line':line}
             return render(request, 'line_index.html', context=context)
+def csv_download(request):
+    response = HttpResponse(content_type='text/csv;charset=gb2312')
+    response['Content-Disposition'] = "attachment;filename=result.csv"
+    line = Line.objects.filter(name__contains='')
+    instant=[['序号','线路名称','设备id','电压等级','线路长度']]
+    count = 1
+    for i in line:
+        instant.append([count,i.name,i.device_id,i.degree,i.length])
+        count +=1
+    context = {
+        'rows': instant
+    }
+    template = loader.get_template('csv_download.txt')
+    csv_template = template.render(context)
+    response.content = csv_template
+    return response
+

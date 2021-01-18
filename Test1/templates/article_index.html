@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章列表页面</title>
+</head>
+<body>
+<a href="{% url 'article:article_add' %}">添加文章</a>
+<p></p>
+<tbody>
+{% for article in articles %}
+    <td>
+        <tr>{{ forloop.counter }}</tr>
+        <tr>{{ article.name }}</tr>
+        <br>
+    </td>
+{% endfor %}
+</tbody>
+</body>
+</html>

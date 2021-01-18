@@ -20,5 +20,5 @@ from . import views
 urlpatterns = [
     path('', views.index),
     path('line/', include('DB_manager.urls'), name='line'),
-
+    path('article/', include('article.urls'), name='article')
 ]
