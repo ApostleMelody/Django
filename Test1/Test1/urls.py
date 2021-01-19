@@ -18,7 +18,7 @@ from django.urls import path,include
 from . import views
 
 urlpatterns = [
-    path('', views.index),
+    path('', views.IndexView.as_view()),
     path('line/', include('DB_manager.urls'), name='line'),
     path('article/', include('article.urls'), name='article')
 ]

@@ -15,12 +15,14 @@ class article_add(View):
         if form.is_valid():
             article_name = form.cleaned_data.get('article_name')
             article_context = form.cleaned_data.get('article_context')
-            article = Articles(name=article_name, context=article_context)
-            article.save()
+            file = request.FILES.get('myfile')
+            if not file:
+                return HttpResponse('文件不存在')
+            Articles.objects.create(name=article_name,context=article_context, thumbnail=file)
             return HttpResponse('提交成功！')
         else:
             print(form.errors)
-            return HttpResponse("提交失败，内容不符合要求%s" %form.errors)
+            return HttpResponse("提交失败，内容不符合要求%s" % form.errors)
 def article_index(request):
     articles = Articles.objects.all()
     context = {'articles':articles}
@@ -28,9 +30,9 @@ def article_index(request):
 
 
 class ArticleList(ListView):
-    model = Articles # 用在哪个模块
+    model = Articles  # 用在哪个模块
     template_name = 'article_list.html' # 渲染用哪个模板
-    paginate_by = 5 # 一页多少条数据
+    paginate_by = 5  # 一页多少条数据
     context_object_name = 'articles' # 上下文名字
     ordering = 'click_number' # 排序字段
     page_kwarg = 'page' # 翻页的参数名字
@@ -65,3 +67,4 @@ class ArticleList(ListView):
             right_has_more = True
         return {'left_pages': left_pages, 'right_pages': right_pages, 'current_page': current_page,
                 'left_has_more': left_has_more, 'right_has_more': right_has_more}
+
