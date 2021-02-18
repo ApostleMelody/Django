@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+    这是一个线路台站管理界面
+    <a href="{% url 'LineManager:add' %}">添加线路</a>
+
+        <table border="1">
+        <tr>
+            <td>序号</td>
+            <td>线路名称</td>
+            <td>长度</td>
+            <td>电压等级</td>
+            <td>操作</td>
+        </tr>
+            {% for line in lines %}
+
+
+                <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ line.0 }} </td>
+                <td>{{ line.1 }}</td>
+                <td>{{ line.2 }}</td>
+
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ line.0 }}" name="viewpole">
+                    <td><input type="submit" value="查看该线路杆塔信息"></td>
+                </form>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ line.0 }}" name="addpole">
+                    <td><input type="submit" value="添加杆塔"></td>
+                </form>
+                 </tr>
+            {% endfor %}
+
+
+
+        </table>
+{% endblock %}
+
+
+

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    线路名称：<input type="text" name="name">
+    线路长度：<input type="text" name="length">
+    电压等级：
+    <select name="degree" id="">
+        <option value="750kV">750kV</option>
+        <option value="330kV">330kV</option>
+        <option value="220kV">220kV</option>
+        <option value="110kV">110kV</option>
+    </select>
+    <input type="submit" value="提交">
+</form>
+<a href="{% url 'LineManager:index' %}">返回</a>
+
+{% endblock %}

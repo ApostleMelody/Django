@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="" method="post">
+    {% csrf_token %}
+        <tr>
+        <td>用户名</td>
+        <input type="text" name="username" >
+        </tr>
+        <tr>
+            <td>密码</td>
+            <input type="text" name="pwd1">
+        </tr>
+        <tr>
+            <td>重复密码</td>
+            <input type="text" name="pwd2">
+        </tr>
+        <input type="submit" value="注册">
+    </form>
+{% endblock %}

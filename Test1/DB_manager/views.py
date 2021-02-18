@@ -15,7 +15,8 @@ def add(request):
         line = Line(name=name, device_id=device_id, degree=degree, length=length)
         line.save()
         context = {'状态':'提交成功'}
-        return render(request,'line_add.html', context=context)
+        return HttpResponse('添加成功')
+        # return render(request,'line_add.html', context=context)
 
 
 def index(request):

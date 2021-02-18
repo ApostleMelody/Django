@@ -4,6 +4,9 @@ from django.views.generic import View
 from .models import Articles
 from django.views.generic import ListView
 from .forms import ArticleForms
+from django.contrib import messages
+
+
 class article_add(View):
     def get(self,request,*args,**kwargs):
         form = ArticleForms()
@@ -68,3 +71,58 @@ class ArticleList(ListView):
         return {'left_pages': left_pages, 'right_pages': right_pages, 'current_page': current_page,
                 'left_has_more': left_has_more, 'right_has_more': right_has_more}
 
+class TextView(View):
+    def get(self,request):
+        # 已经做好context上下文处理器，则会自动执行
+        # user_id = request.session.get('user_id')
+        # # print(user_id)
+        # context = {}
+        # try:
+        #     user = User.objects.get(pk=user_id)
+        #     # print('找到了用户存在的证据')
+        #     context['front_user'] = user
+        # except:
+        #     pass
+        return render(request,'text.html')
+
+from .forms import SigninForm
+from .models import User
+class SignIn(View):
+    def get(self,request):
+        return render(request,'signin.html')
+    def post(self,request):
+        form = SigninForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = User.objects.filter(username=username, password=password).first()
+            if user:
+                request.session['user_id'] = user.id
+                return redirect(reverse('article:text_index'))
+            else:
+                messages.info(request,'用户名或密码错误！')
+                return redirect(reverse('article:signin'))
+        else:
+            errors = form.get_error()
+            for error in errors:
+                messages.info(request, error)
+            return redirect(reverse('article:signin'))
+
+from .forms import SignUpForm
+from django.shortcuts import redirect,reverse
+
+class SignUp(View):
+    def get(self,request):
+        return render(request,'signup.html')
+    def post(self,request):
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('article:text_index'))
+        else:
+            errors = form.errors.get_json_data()
+            print(errors)
+            return redirect(reverse('article:signup'))
+
+def Blog(request):
+    return render(request, 'blog.html')
